@@ -1,0 +1,13 @@
+version: '2'
+services:
+  torproxy:
+    build: ./torproxy
+    ports:
+        # The socks5 proxy port exposed for the whole system
+        - "9050:9050"
+  main:
+    build: ./main
+    depends_on:
+        - torproxy
+    # Need "host" networking as of now for this container to be proxied
+    network_mode: "host"

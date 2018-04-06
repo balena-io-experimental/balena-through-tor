@@ -1,0 +1,2 @@
+# Expose the SOCKS port on all interfaces
+SOCKSPort 0.0.0.0:9050
