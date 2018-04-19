@@ -9,4 +9,4 @@ HEALTHCHECK --interval=60s --timeout=15s --start-period=90s \
 
 ENV INITSYSTEM=on
 RUN rc-update add tor
-CMD ["tail" "-f" "/var/log/tor/notices.log"]
+CMD tail -f /var/log/tor/notices.log

@@ -1,2 +1,5 @@
 # Expose the SOCKS port on all interfaces
 SOCKSPort 0.0.0.0:9050
+
+# Log into file
+Log notice file /var/log/tor/notices.log
