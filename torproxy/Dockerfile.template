@@ -7,4 +7,5 @@ COPY torrc /etc/tor/
 HEALTHCHECK --interval=60s --timeout=15s --start-period=90s \
             CMD curl --fail --socks5 localhost:9050 -I -L ipinfo.io || exit 1
 
+ENV INITSYSTEM=on
 CMD while : ; do echo "..."; sleep 600; done
