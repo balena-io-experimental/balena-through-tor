@@ -1,10 +1,16 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-alpine
 
-RUN apk add --no-cache tor curl
+RUN apk add --no-cache tor curl iptables
 
+WORKDIR /usr/bin/app
 COPY torrc /etc/tor/
+COPY start.sh ./
 
-HEALTHCHECK --interval=60s --timeout=15s --start-period=90s \
-            CMD curl --fail --socks5 localhost:9050 -I -L ipinfo.io || exit 1
+# Healthcheck, 2 mins after container start, and every 1 min afterwards,
+# by checking whether we the device is over the tor network
+HEALTHCHECK --start-period=120s --timeout=30s --interval=60s --retries=3 \
+            CMD curl --silent --fail --socks5 localhost:9050 --socks5-hostname localhost:9050 -L https://check.torproject.org/ | grep -q -m 1 Congratulations || exit 1
 
-CMD tor
+ENV INITSYSTEM=on
+RUN rc-update add tor
+CMD ["bash", "start.sh"]

@@ -14,8 +14,8 @@ This project includes two service:
 
 ### Application
 
-At the moment the application needs to be set up with `network_mode: "host"`
-to be proxied.
+The application needs no changes, it will be proxied by the system through
+the `torproxy` service.
 
 ### Host
 
@@ -35,8 +35,6 @@ redsocks {
 type = socks5;
 ip = 127.0.0.1;
 port = 9050;
-local_ip = 127.0.0.1;
-local_port = 12345;
 }
 ```
 
